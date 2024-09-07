@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Germac.Domain\Germac.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
