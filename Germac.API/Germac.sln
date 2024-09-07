@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35222.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.API", "Germac.API.csproj", "{2E0DAD0A-460C-4DA3-80E6-492D60FBFBDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.Application", "..\Germac.Application\Germac.Application.csproj", "{40F79BEC-1E33-4905-B579-1F153017F161}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.Domain", "..\Germac.Domain\Germac.Domain.csproj", "{C3F6E366-4C9A-4701-AA3D-29796A73B287}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.Infrastructure", "..\Germac.Infrastructure\Germac.Infrastructure.csproj", "{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.CrossCutting", "..\Germac.CrossCutting\Germac.CrossCutting.csproj", "{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Germac.Test", "..\Germac.UnitTest\Germac.Test.csproj", "{15CC0939-AEE5-4759-ABFF-20FF077B9722}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2E0DAD0A-460C-4DA3-80E6-492D60FBFBDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E0DAD0A-460C-4DA3-80E6-492D60FBFBDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E0DAD0A-460C-4DA3-80E6-492D60FBFBDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E0DAD0A-460C-4DA3-80E6-492D60FBFBDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{40F79BEC-1E33-4905-B579-1F153017F161}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40F79BEC-1E33-4905-B579-1F153017F161}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40F79BEC-1E33-4905-B579-1F153017F161}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40F79BEC-1E33-4905-B579-1F153017F161}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C3F6E366-4C9A-4701-AA3D-29796A73B287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C3F6E366-4C9A-4701-AA3D-29796A73B287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C3F6E366-4C9A-4701-AA3D-29796A73B287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C3F6E366-4C9A-4701-AA3D-29796A73B287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A9707EB9-1D03-40A0-BFBA-16937E4B90CE}
+	EndGlobalSection
+EndGlobal
