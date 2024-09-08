@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Query.FindOrder
+namespace Germac.Application.Query.FindOrderQuery
 {
     public class FindOrderRequest : IRequest<FindOrderResponse>
     {

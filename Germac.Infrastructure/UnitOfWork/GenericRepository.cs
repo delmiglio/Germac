@@ -12,7 +12,7 @@ namespace Germac.Infrastructure.UnitOfWork
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<T> GetById(string query, int id)
+        public async Task<T> GetById(string query, long id)
         {
             return await _unitOfWork.Connection.QueryFirstAsync<T>(
                 query,
@@ -21,35 +21,35 @@ namespace Germac.Infrastructure.UnitOfWork
             );
         }
 
-        public Task<IEnumerable<T>> GetAll(string query)
+        public async Task<IEnumerable<T>> GetAll(string query)
         {
-            return _unitOfWork.Connection.QueryAsync<T>(
+            return await _unitOfWork.Connection.QueryAsync<T>(
                 query,
                 transaction: _unitOfWork.Transaction
             );
         }
 
-        public Task<int> Add(string query, T entity)
+        public async Task<int> Add(string query, T entity)
         {
-            return _unitOfWork.Connection.ExecuteAsync(
+            return await _unitOfWork.Connection.ExecuteAsync(
                 query,
                 entity,
                 _unitOfWork.Transaction
             );
         }
 
-        public Task<int> Update(string query, T entity)
+        public async Task<int> Update(string query, T entity)
         {
-            return _unitOfWork.Connection.ExecuteAsync(
+            return await _unitOfWork.Connection.ExecuteAsync(
                 query,
                 entity,
                 _unitOfWork.Transaction
             );
         }
 
-        public Task<int> Delete(string query, int id)
+        public async Task<int> Delete(string query, long id)
         {
-            return _unitOfWork.Connection.ExecuteAsync(
+            return await _unitOfWork.Connection.ExecuteAsync(
                 query,
                 new { Id = id },
                 _unitOfWork.Transaction

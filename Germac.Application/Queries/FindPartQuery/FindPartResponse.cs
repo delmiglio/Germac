@@ -1,6 +1,8 @@
-﻿namespace Germac.Application.Query.FindPart
+﻿using Germac.Application.DTO;
+
+namespace Germac.Application.Query.FindPartQuery
 {
-    public class FindPartResponse
+    public class FindPartResponse : PartDTO
     {
 
     }

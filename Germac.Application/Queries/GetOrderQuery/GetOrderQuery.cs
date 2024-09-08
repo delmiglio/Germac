@@ -3,7 +3,7 @@ using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
 
-namespace Germac.Application.Query.GetOrder
+namespace Germac.Application.Query.GetOrderQuery
 {
     public class GetOrderQuery : IRequestHandler<GetOrderRequest, GetOrderResponse>
     {

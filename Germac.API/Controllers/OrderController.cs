@@ -1,8 +1,8 @@
 ﻿using Germac.Application.Command.CreateOrderCommand;
 using Germac.Application.Command.DeleteOrderCommand;
 using Germac.Application.Command.UpdateOrderCommand;
-using Germac.Application.Query.FindOrder;
-using Germac.Application.Query.GetOrder;
+using Germac.Application.Query.FindOrderQuery;
+using Germac.Application.Query.GetOrderQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

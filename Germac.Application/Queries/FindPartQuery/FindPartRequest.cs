@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Query.FindPart
+namespace Germac.Application.Query.FindPartQuery
 {
     public class FindPartRequest : IRequest<FindPartResponse>
     {

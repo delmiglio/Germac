@@ -1,8 +1,8 @@
 ﻿using Germac.Application.Command.CreatePartCommand;
 using Germac.Application.Command.DeletePartCommand;
 using Germac.Application.Command.UpdatePartCommand;
-using Germac.Application.Query.FindPart;
-using Germac.Application.Query.GetPart;
+using Germac.Application.Query.FindPartQuery;
+using Germac.Application.Query.GetPartQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

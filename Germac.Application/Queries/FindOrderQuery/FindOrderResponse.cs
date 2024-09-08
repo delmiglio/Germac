@@ -1,6 +1,8 @@
-﻿namespace Germac.Application.Query.FindOrder
+﻿using Germac.Application.DTO;
+
+namespace Germac.Application.Query.FindOrderQuery
 {
-    public class FindOrderResponse
+    public class FindOrderResponse : OrderDTO
     {
 
     }

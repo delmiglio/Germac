@@ -1,23 +1,8 @@
-using FluentValidation;
-using Germac.Application.Commands.CreateOrderCommand;
-using Germac.CrossCutting.Behaviors;
-using Germac.Domain.Repositories;
-using Germac.Infrastructure.Logging;
-using Germac.Infrastructure.Repositories;
-using MediatR;
-using MySql.Data.MySqlClient;
+using Germac.CrossCutting.ServiceCollectionExtensions;
 using Serilog;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
 // Read configuration from appsettings.json
 var configuration = new ConfigurationBuilder()
@@ -29,21 +14,28 @@ Log.Logger = new LoggerConfiguration()
     .ReadFrom.Configuration(configuration)
     .CreateLogger();
 
+// Add services to the container.
+builder.Services.AddControllers();
+
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+// Register MediatR and scan the assembly where the handlers are located
+//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+
+// Register MediatR and scan the assembly where the handlers are located
+// Path to the DLL if it is not directly referenced
+// Assuming the DLL is in the output directory
+string pathToDll = Path.Combine(AppContext.BaseDirectory, "Germac.Application.dll");
+Assembly externalAssembly = Assembly.LoadFrom(pathToDll);
+
+// Register MediatR and scan the loaded assembly for request handlers
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(externalAssembly));
+
 var services = new ServiceCollection();
 
-builder.Services.AddSingleton<ILoggingService, LoggingService>();
-
-builder.Services.AddTransient(x =>
-  new MySqlConnection(builder.Configuration.GetConnectionString("Default")));
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
-
-builder.Services.AddScoped<IPartRepository, PartRepository>();
-builder.Services.AddScoped<IOrderRepository, OrderRepository>();
-
-builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
-
-
-
+services.AddServices(configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
