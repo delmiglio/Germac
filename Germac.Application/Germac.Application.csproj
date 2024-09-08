@@ -7,8 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Germac.CrossCutting\Germac.CrossCutting.csproj" />
+    <PackageReference Include="MediatR" Version="12.4.0" />
+    <PackageReference Include="MediatR.Extensions.FluentValidation.AspNetCore" Version="5.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Germac.Domain\Germac.Domain.csproj" />
+    <ProjectReference Include="..\Germac.Infrastructure\Germac.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

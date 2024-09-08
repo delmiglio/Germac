@@ -28,7 +28,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Germac.API\Germac.API.csproj" />
     <ProjectReference Include="..\Germac.Application\Germac.Application.csproj" />
-    <ProjectReference Include="..\Germac.CrossCutting\Germac.CrossCutting.csproj" />
     <ProjectReference Include="..\Germac.Domain\Germac.Domain.csproj" />
     <ProjectReference Include="..\Germac.Infrastructure\Germac.Infrastructure.csproj" />
   </ItemGroup>

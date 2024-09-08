@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Germac.Domain", "..\Germac.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Germac.Infrastructure", "..\Germac.Infrastructure\Germac.Infrastructure.csproj", "{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Germac.CrossCutting", "..\Germac.CrossCutting\Germac.CrossCutting.csproj", "{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Germac.Tests", "..\Germac.UnitTest\Germac.Tests.csproj", "{15CC0939-AEE5-4759-ABFF-20FF077B9722}"
 EndProject
 Global
@@ -37,10 +35,6 @@ Global
 		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F02C1CA-7D6D-4081-ACBE-9B36E5BE133B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{634DF9F9-E25C-4FA4-829E-89BE1E43CFD6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15CC0939-AEE5-4759-ABFF-20FF077B9722}.Release|Any CPU.ActiveCfg = Release|Any CPU
