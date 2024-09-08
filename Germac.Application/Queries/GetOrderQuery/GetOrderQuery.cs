@@ -19,7 +19,8 @@ namespace Germac.Application.Query.GetOrderQuery
             var orders = await _orderRepository.GetAll(OrderQueries.Get);
             return new GetOrderResponse
             {
-                Orders = orders.Select(order => new OrderDTO {
+                Orders = orders.Select(order => new OrderDTO
+                {
                     CreateDate = order.CreateDate,
                     OrderId = order.Id,
                     TotalPrice = order.TotalPrice

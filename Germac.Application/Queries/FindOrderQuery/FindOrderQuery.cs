@@ -14,15 +14,15 @@ namespace Germac.Application.Query.FindOrderQuery
         public async Task<FindOrderResponse> Handle(FindOrderRequest request, CancellationToken cancellationToken)
         {
             var order = await _orderRepository.GetById(OrderQueries.Get, request.Id);
-            if (order == null)
+            if (order != null)
             {
-                return null;
+                return new FindOrderResponse
+                {
+                    OrderId = order.OrderId,
+                    TotalPrice = order.TotalPrice,
+                };
             }
-            return new FindOrderResponse
-            {
-                OrderId = order.OrderId,
-                TotalPrice = order.TotalPrice,
-            };
+            return new FindOrderResponse();
         }
     }
 }
