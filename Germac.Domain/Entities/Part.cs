@@ -9,6 +9,10 @@
             this.Name = name;
             this.Price = price;
         }
+        public Part() : base(null, null)
+        {
+            
+        }
 
         public long Id { get; set; }
         public long PartId { get; set; }

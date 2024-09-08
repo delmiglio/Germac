@@ -17,6 +17,7 @@ namespace Germac.Application.Command.CreatePartCommand
         public async Task<CreatePartResponse> Handle(CreatePartRequest request, CancellationToken cancellationToken)
         {
             var part = new Part(request.PartId, request.PartNumber, request.Name, request.Quantity, request.Price);
+            part.CreateDate = DateTime.Now;
             var partCreated = await _partRepository.Add(PartQueries.Insert, part);
             return new CreatePartResponse();
         }

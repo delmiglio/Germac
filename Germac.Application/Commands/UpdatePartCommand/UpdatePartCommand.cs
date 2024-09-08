@@ -1,30 +1,64 @@
-﻿using MediatR;
+﻿using Germac.Domain.Entities;
+using Germac.Domain.Repositories;
+using Germac.Infrastructure.Queries;
+using Germac.Infrastructure.UnitOfWork;
+using MediatR;
 
 namespace Germac.Application.Command.UpdatePartCommand
 {
-    public class UpdateOrderCommand : IRequestHandler<UpdatePartRequest, UpdatePartResponse>
+    public class UpdatePartCommand : IRequestHandler<UpdatePartRequest, UpdatePartResponse>
     {
-        //private readonly IPartRepository _partRepository;
+        private readonly IUnitOfWork _unitOfWork;
+        private readonly IPartRepository _partRepository;
 
-        //public UpdatePartCommand(IPartRepository repository)
-        //{
-        //    _repository = repository;
-        //}
-
-        //public async Task<Part> Handle(UpdatePartRequest request, CancellationToken cancellationToken)
-        //{
-        //    var part = new Part
-        //    {
-        //        Name = request.Name,
-        //        Price = request.Price
-        //    };
-
-        //    await _repository.AddAsync(product);
-        //    return product;
-        //}
-        public Task<UpdatePartResponse> Handle(UpdatePartRequest request, CancellationToken cancellationToken)
+        public UpdatePartCommand(IUnitOfWork unitOfWork, IPartRepository partRepository)
         {
-            throw new NotImplementedException();
+            _unitOfWork = unitOfWork;
+            _partRepository = partRepository;
+        }
+
+        public async Task<UpdatePartResponse> Handle(UpdatePartRequest request, CancellationToken cancellationToken)
+        {
+            using (var transaction = _unitOfWork.Connection.BeginTransaction())
+            {
+                try
+                {
+                    var oldPart = await _partRepository.GetById(PartQueries.Find, request.Id);
+
+                    if (oldPart != null)
+                    {
+                        var updatedPart = await _partRepository.Update(PartQueries.Update, new Part
+                        {
+                            PartId = request.PartId,
+                            Id = request.Id,
+                            Name = request.Name,
+                            PartNumber = request.PartNumber,
+                            Price = request.Price,
+                            Quantity = request.Quantity,
+                            UpdateDate = DateTime.Now
+                        });
+
+                        if (updatedPart > 0)
+                        {
+                            _unitOfWork.Transaction.Commit();
+                            return new UpdatePartResponse
+                            {
+
+                            };
+                        }
+                    }
+
+                    return new UpdatePartResponse
+                    {
+
+                    };
+                }
+                catch (Exception)
+                {
+                    _unitOfWork.Transaction.Rollback();
+                    throw;
+                }
+            }
         }
     }
 

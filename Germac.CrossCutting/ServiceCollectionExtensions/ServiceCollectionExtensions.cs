@@ -2,6 +2,7 @@
 using FluentValidation;
 using Germac.CrossCutting.Behaviors;
 using Germac.Domain.Repositories;
+using Germac.Domain.UnitOfWork;
 using Germac.Infrastructure.Logging;
 using Germac.Infrastructure.Repositories;
 using Germac.Infrastructure.UnitOfWork;
@@ -17,6 +18,7 @@ namespace Germac.CrossCutting.ServiceCollectionExtensions
         public static void AddServices(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
             serviceCollection.AddSingleton<ILoggingService, LoggingService>();
+            serviceCollection.AddSingleton<IUnitOfWork, UnitOfWork>();
 
             serviceCollection.AddTransient(x =>
               new MySqlConnection(configuration.GetConnectionString("Default")));

@@ -7,6 +7,10 @@
             this.OrderId = orderId;
             this.TotalPrice = totalPrice;
         }
+        public Order() : base(null, null)
+        {
+            
+        }
 
         public long Id { get; set; }
         public long OrderId { get; set; }

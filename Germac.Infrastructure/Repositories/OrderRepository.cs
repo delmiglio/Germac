@@ -1,8 +1,6 @@
-﻿using Dapper;
-using Germac.Domain.Entities;
+﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.UnitOfWork;
-using System.Data;
 
 namespace Germac.Infrastructure.Repositories
 {
