@@ -54,22 +54,10 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
 
 // Register MediatR and scan the assembly where the handlers are located
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-
-//// Register MediatR and scan the assembly where the handlers are located
-//// Path to the DLL if it is not directly referenced
-//// Assuming the DLL is in the output directory
-//string pathToDll = Path.Combine(AppContext.BaseDirectory, "Germac.Application.dll");
-//Assembly externalAssembly = Assembly.LoadFrom(pathToDll);
-
-
-
-//// Register MediatR and scan the loaded assembly for request handlers
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(externalAssembly));
-// Registro do MediatR
-//builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(Program).Assembly));
-// Registrar o MediatR e escanear automaticamente por handlers no assembly
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
+    Assembly.GetExecutingAssembly(), // Assemblies do projeto atual
+    Assembly.Load("Germac.Application") // Assembly externa, se necessário
+));
 
 
 var app = builder.Build();
