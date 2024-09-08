@@ -1,18 +1,15 @@
-﻿using Germac.Domain.Entities;
-using System;
-using System.Collections.Generic;
+﻿using Dapper;
+using Germac.Domain.Entities;
+using Germac.Domain.Repositories;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Germac.Infrastructure.Repositories
 {
-    internal class PartRepository
+    public class PartRepository : IPartRepository
     {
         private readonly ConnectionFactory _connectionFactory;
 
-        public OrderRepository(ConnectionFactory connectionFactory)
+        public PartRepository(ConnectionFactory connectionFactory)
         {
             _connectionFactory = connectionFactory;
         }
@@ -21,17 +18,15 @@ namespace Germac.Infrastructure.Repositories
         {
             using (IDbConnection connection = _connectionFactory.Open())
             {
-                string sql = "SELECT * FROM SomeTable";
-                return await connection.QueryAsync<Part>(sql);
+                return await connection.QueryAsync<Part>("SELECT * FROM PART");
             }
         }
 
-        public async Task<int> Create(Part entity)
+        public async Task<Part> Find(long id)
         {
             using (IDbConnection connection = _connectionFactory.Open())
             {
-                string sql = "INSERT INTO SomeTable (SomeColumn) VALUES (@SomeColumn)";
-                return await connection.ExecuteAsync(sql, new { SomeColumn = entity.Name });
+                return await connection.QueryFirstAsync<Part>("SELECT * FROM PART WHERE ID = @ID", new { id });
             }
         }
     }

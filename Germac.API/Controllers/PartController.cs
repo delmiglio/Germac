@@ -1,7 +1,8 @@
 ﻿using Germac.Application.Command.CreatePartCommand;
-using Germac.Application.DTO;
+using Germac.Application.Command.DeletePartCommand;
+using Germac.Application.Command.UpdatePartCommand;
+using Germac.Application.Query.FindPart;
 using Germac.Application.Query.GetPart;
-using Germac.Domain.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,8 +21,13 @@ namespace Germac.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPart()
         {
-            var request = new FindPartRequest();
+            var request = new GetPartRequest();
             var parts = await _mediator.Send(request);
+
+            if (parts == null)
+            {
+                return NotFound();
+            }
 
             return Ok(parts);
         }
@@ -29,21 +35,21 @@ namespace Germac.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> FindPartById([FromRoute] long id)
         {
-            var request = new FindPartRequest();
+            var request = new FindPartRequest(id);
             var part = await _mediator.Send(request);
 
             return Ok(part);
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreatePart([FromBody] DeletePartRequest request)
+        public async Task<IActionResult> CreatePart([FromBody] CreatePartRequest request)
         {
             var partCreated = await _mediator.Send(request);
             return Ok(partCreated);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdatePart([FromRoute] long id, [FromBody] DeletePartRequest request)
+        public async Task<IActionResult> UpdatePart([FromRoute] long id, [FromBody] UpdatePartRequest request)
         {
             var partUpdated = await _mediator.Send(request);
             return Ok(partUpdated);

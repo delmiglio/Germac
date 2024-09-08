@@ -1,4 +1,4 @@
-﻿namespace Germac.Application.Query.GetPart
+﻿namespace Germac.Application.Query.FindPart
 {
     public class FindPartResponse
     {

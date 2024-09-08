@@ -1,29 +1,30 @@
-﻿using MediatR;
+﻿using Germac.Domain.Entities;
+using Germac.Domain.Repositories;
+using MediatR;
 
 namespace Germac.Application.Command.CreatePartCommand
 {
-    public class DeletePartCommand : IRequestHandler<DeletePartRequest, DeletePartResponse>
+    public class CreatePartCommand : IRequestHandler<CreatePartRequest, CreatePartResponse>
     {
         private readonly IPartRepository _partRepository;
 
-        public DeletePartCommand(IPartRepository repository)
+        public CreatePartCommand(IPartRepository repository)
         {
-            _repository = repository;
+            _partRepository = repository;
         }
 
-        public async Task<Part> Handle(DeletePartRequest request, CancellationToken cancellationToken)
+        public async Task<CreatePartResponse> Handle(CreatePartRequest request, CancellationToken cancellationToken)
         {
-            var part = new Part
-            {
-                Name = request.Name,
-                Price = request.Price
-            };
+            //var part = new Part(request.PartId, request.PartNumber, request.Name, request.Quantity, request.Price);
+            //var partCreated = await _partRepository.Create(part);
+            //if (partCreated != null) {
+            //    return new CreatePartResponse
+            //    {
+            //        Id = partCreated.Id
+            //    };
+            //}
 
-            await _repository.AddAsync(product);
-            return product;
-        }
-        public Task<DeletePartResponse> Handle(DeletePartRequest request, CancellationToken cancellationToken)
-        {
+            //return null;
             throw new NotImplementedException();
         }
     }

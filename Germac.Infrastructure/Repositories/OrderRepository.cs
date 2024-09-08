@@ -1,15 +1,11 @@
-﻿]using Dapper;
+﻿using Dapper;
 using Germac.Domain.Entities;
-using System;
-using System.Collections.Generic;
+using Germac.Domain.Repositories;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Germac.Infrastructure.Repositories
 {
-    public class OrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly ConnectionFactory _connectionFactory;
 
@@ -18,22 +14,21 @@ namespace Germac.Infrastructure.Repositories
             _connectionFactory = connectionFactory;
         }
 
-        public async Task<IEnumerable<Part>> Get()
+        public async Task<IEnumerable<Order>> Get()
         {
             using (IDbConnection connection = _connectionFactory.Open())
             {
-                string sql = "SELECT * FROM SomeTable";
-                return await connection.QueryAsync<Part>(sql);
+                return await connection.QueryAsync<Order>("SELECT * FROM ORDER");
             }
         }
 
-        public async Task<int> Create(Part entity)
+        public async Task<Order> Find(long id)
         {
             using (IDbConnection connection = _connectionFactory.Open())
             {
-                string sql = "INSERT INTO SomeTable (SomeColumn) VALUES (@SomeColumn)";
-                return await connection.ExecuteAsync(sql, new { SomeColumn = entity.Name });
+                return await connection.QueryFirstAsync<Order>("SELECT * FROM ORDER WHERE ID = @ID", new { id });
             }
         }
+
     }
 }

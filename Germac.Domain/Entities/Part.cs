@@ -2,9 +2,8 @@
 {
     public class Part : BaseEntity
     {
-        public Part(long id, long partId, string partNumber, string name, string quantity, decimal price) : base(DateTime.Now, null)
+        public Part(long partId, string partNumber, string name, long quantity, decimal price) : base(DateTime.Now, null)
         {
-            this.Id = id;
             this.PartId = partId;
             this.PartNumber = partNumber;
             this.Name = name;

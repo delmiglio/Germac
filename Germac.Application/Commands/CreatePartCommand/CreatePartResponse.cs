@@ -1,7 +1,7 @@
 ﻿namespace Germac.Application.Command.CreatePartCommand
 {
-    public class DeletePartResponse
+    public class CreatePartResponse
     {
-
+        public long Id { get; set; }
     }
 }

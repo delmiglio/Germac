@@ -2,9 +2,8 @@
 {
     public class Order : BaseEntity
     {
-        public Order(long id, long orderId, decimal totalPrice) : base(DateTime.Now, null)
+        public Order(long orderId, decimal totalPrice) : base(DateTime.Now, null)
         {
-            this.Id = id;
             this.OrderId = orderId;
             this.TotalPrice = totalPrice;
         }

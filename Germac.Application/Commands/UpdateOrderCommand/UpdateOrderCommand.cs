@@ -1,8 +1,8 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Command.UpdatePartCommand
+namespace Germac.Application.Command.UpdateOrderCommand
 {
-    public class UpdateOrderCommand : IRequestHandler<UpdatePartRequest, UpdatePartResponse>
+    public class UpdateOrderCommand : IRequestHandler<UpdateOrderRequest, UpdateOrderResponse>
     {
         //private readonly IPartRepository _partRepository;
 
@@ -22,7 +22,7 @@ namespace Germac.Application.Command.UpdatePartCommand
         //    await _repository.AddAsync(product);
         //    return product;
         //}
-        public Task<UpdatePartResponse> Handle(UpdatePartRequest request, CancellationToken cancellationToken)
+        public Task<UpdateOrderResponse> Handle(UpdateOrderRequest request, CancellationToken cancellationToken)
         {
             throw new NotImplementedException();
         }

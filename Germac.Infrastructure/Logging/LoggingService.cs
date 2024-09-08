@@ -1,18 +1,7 @@
-﻿using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Serilog;
 
 namespace Germac.Infrastructure.Logging
 {
-    public interface ILoggingService
-    {
-        void LogInfo(string message, params object[] args);
-        void LogError(string message, Exception exception);
-    }
-
     public class LoggingService : ILoggingService
     {
         private readonly ILogger _logger;

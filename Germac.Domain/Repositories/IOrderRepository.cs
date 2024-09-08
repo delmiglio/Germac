@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Germac.Domain.Entities;
 
 namespace Germac.Domain.Repositories
 {
     public interface IOrderRepository
     {
+        Task<IEnumerable<Order>> Get();
+        Task<Order> Find(long id);
     }
 }
