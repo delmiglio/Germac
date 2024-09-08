@@ -7,11 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Query\GetParts\" />
-    <Folder Include="Query\FindPart\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Germac.CrossCutting\Germac.CrossCutting.csproj" />
     <ProjectReference Include="..\Germac.Domain\Germac.Domain.csproj" />
   </ItemGroup>

@@ -1,6 +1,6 @@
 ﻿namespace Germac.Application.Command.CreatePartCommand
 {
-    public class CreatePartResponse
+    public class DeletePartResponse
     {
 
     }
