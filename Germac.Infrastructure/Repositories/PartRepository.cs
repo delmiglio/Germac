@@ -1,33 +1,14 @@
-﻿using Dapper;
-using Germac.Domain.Entities;
+﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
-using System.Data;
+using Germac.Infrastructure.UnitOfWork;
 
 namespace Germac.Infrastructure.Repositories
 {
-    public class PartRepository : IPartRepository
-    {
-        private readonly ConnectionFactory _connectionFactory;
-
-        public PartRepository(ConnectionFactory connectionFactory)
+    public class PartRepository : GenericRepository<Part>, IPartRepository
+    { 
+        public PartRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _connectionFactory = connectionFactory;
-        }
 
-        public async Task<IEnumerable<Part>> Get()
-        {
-            using (IDbConnection connection = _connectionFactory.Open())
-            {
-                return await connection.QueryAsync<Part>("SELECT * FROM PART");
-            }
-        }
-
-        public async Task<Part> Find(long id)
-        {
-            using (IDbConnection connection = _connectionFactory.Open())
-            {
-                return await connection.QueryFirstAsync<Part>("SELECT * FROM PART WHERE ID = @ID", new { id });
-            }
         }
     }
 }

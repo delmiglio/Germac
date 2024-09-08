@@ -1,3 +1,5 @@
+using FluentValidation;
+using Germac.Application.Commands.CreateOrderCommand;
 using Germac.CrossCutting.Behaviors;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Logging;
@@ -37,6 +39,9 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavi
 
 builder.Services.AddScoped<IPartRepository, PartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+
+builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
+
 
 
 var app = builder.Build();

@@ -1,5 +1,6 @@
 ﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
+using Germac.Infrastructure.Queries;
 using MediatR;
 
 namespace Germac.Application.Command.CreateOrderCommand
@@ -15,19 +16,12 @@ namespace Germac.Application.Command.CreateOrderCommand
 
         public async Task<CreateOrderResponse> Handle(CreateOrderRequest request, CancellationToken cancellationToken)
         {
-            //var Order = new Order(request.OrderId, request.OrderNumber, request.Price);
-            //var OrderCreated = await _orderRepository.Create(Order);
-            //if (OrderCreated != null) {
-            //    return new CreateOrderResponse
-            //    {
-            //        Id = OrderCreated.Id
-            //    };
-            //}
-
-            //return null;
-
-            throw new NotImplementedException();
+            var order = new Order(request.OrderNumber, request.TotalPrice);
+            var orderCreated = await _orderRepository.Add(OrderQueries.Insert, order);
+            return new CreateOrderResponse();
         }
-    }
+
+
+   }
 
 }

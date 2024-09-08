@@ -2,9 +2,8 @@
 
 namespace Germac.Domain.Repositories
 {
-    public interface IPartRepository
+    public interface IPartRepository : IRepository<Part>
     {
-        Task<IEnumerable<Part>> Get();
-        Task<Part> Find(long id);
+
     }
 }

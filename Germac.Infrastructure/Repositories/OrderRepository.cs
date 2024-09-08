@@ -1,34 +1,20 @@
 ﻿using Dapper;
 using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
+using Germac.Infrastructure.UnitOfWork;
 using System.Data;
 
 namespace Germac.Infrastructure.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : GenericRepository<Order>, IOrderRepository
     {
-        private readonly ConnectionFactory _connectionFactory;
+        public string QueryGet = "SELECT * FROM ORDER";
+        public string QueryFind = "SELECT * FROM ORDER WHERE ID = @ID";
+        public string QueryUpdate = "UPDATE ORDER SET ";
+        public string QueryDelete = "DELETE FROM ORDER WHERE ID = @ID";
 
-        public OrderRepository(ConnectionFactory connectionFactory)
+        public OrderRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
         {
-            _connectionFactory = connectionFactory;
         }
-
-        public async Task<IEnumerable<Order>> Get()
-        {
-            using (IDbConnection connection = _connectionFactory.Open())
-            {
-                return await connection.QueryAsync<Order>("SELECT * FROM ORDER");
-            }
-        }
-
-        public async Task<Order> Find(long id)
-        {
-            using (IDbConnection connection = _connectionFactory.Open())
-            {
-                return await connection.QueryFirstAsync<Order>("SELECT * FROM ORDER WHERE ID = @ID", new { id });
-            }
-        }
-
     }
 }

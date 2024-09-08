@@ -2,9 +2,8 @@
 
 namespace Germac.Domain.Repositories
 {
-    public interface IOrderRepository
+    public interface IOrderRepository : IRepository<Order>
     {
-        Task<IEnumerable<Order>> Get();
-        Task<Order> Find(long id);
+
     }
 }
