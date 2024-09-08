@@ -6,7 +6,9 @@ namespace Germac.Infrastructure.UnitOfWork
     {
         void Commit();
         void Rollback();
-        IDbConnection Connection { get; }
-        IDbTransaction Transaction { get; }
+        new void Dispose();
+
+        IDbConnection? Connection { get; }
+        IDbTransaction? Transaction { get; }
     }
 }

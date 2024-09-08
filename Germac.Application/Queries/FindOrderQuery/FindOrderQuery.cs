@@ -1,4 +1,6 @@
-﻿using Germac.Domain.Repositories;
+﻿using Germac.Application.DTO;
+using Germac.Application.Queries.FindOrderQuery;
+using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
 
@@ -18,8 +20,11 @@ namespace Germac.Application.Query.FindOrderQuery
             {
                 return new FindOrderResponse
                 {
-                    OrderId = order.OrderId,
-                    TotalPrice = order.TotalPrice,
+                    Order = new OrderDTO
+                    {
+                        OrderId = order.OrderId,
+                        TotalPrice = order.TotalPrice,
+                    } 
                 };
             }
             return new FindOrderResponse();

@@ -1,9 +1,10 @@
-﻿using Germac.Application.DTO;
+﻿using Germac.Application.Base;
+using Germac.Application.DTO;
 
-namespace Germac.Application.Query.FindOrderQuery
+namespace Germac.Application.Queries.FindOrderQuery
 {
-    public class FindOrderResponse : OrderDTO
+    public class FindOrderResponse : ApiResponse<FindOrderResponse>
     {
-
+        public OrderDTO? Order { get; set; }
     }
 }

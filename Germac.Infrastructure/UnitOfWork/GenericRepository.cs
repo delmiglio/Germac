@@ -3,18 +3,16 @@ using Germac.Domain.Repositories;
 
 namespace Germac.Infrastructure.UnitOfWork
 {
-    public class GenericRepository<T> : IRepository<T> where T : class
+    public class GenericRepository<T>(IUnitOfWork unitOfWork) : IRepository<T> where T : class
     {
-        private readonly IUnitOfWork _unitOfWork;
-
-        public GenericRepository(IUnitOfWork unitOfWork)
-        {
-            _unitOfWork = unitOfWork;
-        }
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
         public async Task<T> GetById(string query, long id)
         {
-            return await _unitOfWork.Connection.QueryFirstAsync<T>(
+            var connection = _unitOfWork.Connection;
+            return connection == null
+                ? throw new InvalidOperationException("Database connection is not initialized.")
+                : await connection.QueryFirstAsync<T>(
                 query,
                 new { Id = id },
                 _unitOfWork.Transaction
@@ -23,7 +21,10 @@ namespace Germac.Infrastructure.UnitOfWork
 
         public async Task<IEnumerable<T>> GetAll(string query)
         {
-            return await _unitOfWork.Connection.QueryAsync<T>(
+            var connection = _unitOfWork.Connection;
+            return connection == null
+                ? throw new InvalidOperationException("Database connection is not initialized.")
+                : await connection.QueryAsync<T>(
                 query,
                 transaction: _unitOfWork.Transaction
             );
@@ -31,7 +32,10 @@ namespace Germac.Infrastructure.UnitOfWork
 
         public async Task<int> Add(string query, T entity)
         {
-            return await _unitOfWork.Connection.ExecuteAsync(
+            var connection = _unitOfWork.Connection;
+            return connection == null
+                ? throw new InvalidOperationException("Database connection is not initialized.")
+                : await connection.ExecuteAsync(
                 query,
                 entity,
                 _unitOfWork.Transaction
@@ -40,7 +44,10 @@ namespace Germac.Infrastructure.UnitOfWork
 
         public async Task<int> Update(string query, T entity)
         {
-            return await _unitOfWork.Connection.ExecuteAsync(
+            var connection = _unitOfWork.Connection;
+            return connection == null
+                ? throw new InvalidOperationException("Database connection is not initialized.")
+                : await connection.ExecuteAsync(
                 query,
                 entity,
                 _unitOfWork.Transaction
@@ -49,7 +56,10 @@ namespace Germac.Infrastructure.UnitOfWork
 
         public async Task<int> Delete(string query, long id)
         {
-            return await _unitOfWork.Connection.ExecuteAsync(
+            var connection = _unitOfWork.Connection;
+            return connection == null
+                ? throw new InvalidOperationException("Database connection is not initialized.")
+                : await connection.ExecuteAsync(
                 query,
                 new { Id = id },
                 _unitOfWork.Transaction

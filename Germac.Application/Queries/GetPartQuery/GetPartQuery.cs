@@ -1,19 +1,13 @@
 ﻿using Germac.Application.DTO;
-using Germac.Application.Query.GetPartQuery;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
 
-namespace Germac.Application.Query.GetPartQuery
+namespace Germac.Application.Queries.GetPartQuery
 {
-    public class GetPartQuery : IRequestHandler<GetPartRequest, GetPartResponse>
+    public class GetPartQuery(IPartRepository partRepository) : IRequestHandler<GetPartRequest, GetPartResponse>
     {
-        private readonly IPartRepository _partRepository;
-
-        public GetPartQuery(IPartRepository partRepository)
-        {
-            _partRepository = partRepository;
-        }
+        private readonly IPartRepository _partRepository = partRepository;
 
         public async Task<GetPartResponse> Handle(GetPartRequest request, CancellationToken cancellationToken)
         {

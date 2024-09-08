@@ -1,8 +1,8 @@
-﻿using Germac.Application.Command.CreatePartCommand;
-using Germac.Application.Command.DeletePartCommand;
-using Germac.Application.Command.UpdatePartCommand;
-using Germac.Application.Query.FindPartQuery;
-using Germac.Application.Query.GetPartQuery;
+﻿using Germac.Application.Command.DeletePartCommand;
+using Germac.Application.Commands.CreatePartCommand;
+using Germac.Application.Commands.UpdatePartCommand;
+using Germac.Application.Queries.FindPartQuery;
+using Germac.Application.Queries.GetPartQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,13 +10,9 @@ namespace Germac.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class PartController : ControllerBase
+    public class PartController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public PartController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetPart()
@@ -51,6 +47,7 @@ namespace Germac.API.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePart([FromRoute] long id, [FromBody] UpdatePartRequest request)
         {
+            request.Id = id;
             var partUpdated = await _mediator.Send(request);
             return Ok(partUpdated);
         }

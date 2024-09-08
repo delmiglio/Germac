@@ -1,9 +1,10 @@
-﻿using Germac.Application.DTO;
+﻿using Germac.Application.Base;
+using Germac.Application.DTO;
 
-namespace Germac.Application.Query.FindPartQuery
+namespace Germac.Application.Queries.FindPartQuery
 {
-    public class FindPartResponse : PartDTO
+    public class FindPartResponse : ApiResponse<FindPartResponse>
     {
-
+        public PartDTO? Part { get; set; }
     }
 }

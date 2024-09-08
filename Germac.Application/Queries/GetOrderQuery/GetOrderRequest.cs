@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Query.GetOrderQuery
+namespace Germac.Application.Queries.GetOrderQuery
 {
     public class GetOrderRequest : IRequest<GetOrderResponse>
     {

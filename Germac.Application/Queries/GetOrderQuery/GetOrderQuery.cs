@@ -1,4 +1,5 @@
 ﻿using Germac.Application.DTO;
+using Germac.Application.Queries.GetOrderQuery;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;

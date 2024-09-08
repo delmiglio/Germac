@@ -1,9 +1,9 @@
 ﻿using Germac.Application.DTO;
 
-namespace Germac.Application.Query.GetPartQuery
+namespace Germac.Application.Queries.GetPartQuery
 {
     public class GetPartResponse
     {
-        public IEnumerable<PartDTO> Parts { get; set; }
+        public IEnumerable<PartDTO>? Parts { get; set; }
     }
 }

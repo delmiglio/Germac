@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Query.GetPartQuery
+namespace Germac.Application.Queries.GetPartQuery
 {
     public class GetPartRequest : IRequest<GetPartResponse>
     {

@@ -1,12 +1,12 @@
-﻿using Germac.Infrastructure.UnitOfWork;
-using System.Data;
+﻿using System.Data;
 
-namespace Germac.Domain.UnitOfWork
+namespace Germac.Infrastructure.UnitOfWork
 {
-    public class UnitOfWork : IUnitOfWork
+    public class UnitOfWork : IUnitOfWork, IDisposable
     {
         private readonly IDbConnection _connection;
-        private IDbTransaction _transaction;
+        private IDbTransaction? _transaction;
+        private bool _disposed = false;
 
         public UnitOfWork(IDbConnection connection)
         {
@@ -17,7 +17,45 @@ namespace Germac.Domain.UnitOfWork
 
         public IDbConnection Connection => _connection;
 
-        public IDbTransaction Transaction => _transaction;
+        public IDbTransaction? Transaction => _transaction;
+
+        // Implement IDisposable
+        public void Dispose()
+        {
+            _transaction?.Dispose();
+            _transaction = null;
+
+            if (_connection != null && _connection.State == ConnectionState.Open)
+            {
+                _connection.Close();
+            }
+
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected virtual method for derived classes to override
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposed)
+            {
+                if (disposing)
+                {
+                    // Dispose managed resources
+                    _connection?.Dispose();
+                }
+
+                // Dispose unmanaged resources (if any)
+
+                _disposed = true;
+            }
+        }
+
+        // Destructor / Finalizer (only if needed)
+        ~UnitOfWork()
+        {
+            Dispose(false);
+        }
 
         public void Commit()
         {
@@ -45,17 +83,6 @@ namespace Germac.Domain.UnitOfWork
             finally
             {
                 Dispose();
-            }
-        }
-
-        public void Dispose()
-        {
-            _transaction?.Dispose();
-            _transaction = null;
-
-            if (_connection != null && _connection.State == ConnectionState.Open)
-            {
-                _connection.Close();
             }
         }
     }

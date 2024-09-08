@@ -1,13 +1,10 @@
-﻿using MediatR;
+﻿using Germac.Application.Queries.FindPartQuery;
+using MediatR;
 
-namespace Germac.Application.Query.FindPartQuery
+namespace Germac.Application.Queries.FindPartQuery
 {
-    public class FindPartRequest : IRequest<FindPartResponse>
+    public class FindPartRequest(long id) : IRequest<FindPartResponse>
     {
-        public FindPartRequest(long id)
-        {
-            this.Id = id;
-        }
-        public long Id { get; set; }
+        public long Id { get; set; } = id;
     }
 }

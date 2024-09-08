@@ -5,57 +5,49 @@ using Germac.Infrastructure.Queries;
 using Germac.Infrastructure.UnitOfWork;
 using MediatR;
 
-namespace Germac.Application.Command.UpdateOrderCommand
+namespace Germac.Application.Commands.UpdateOrderCommand
 {
-    public class UpdateOrderCommand : IRequestHandler<UpdateOrderRequest, UpdateOrderResponse>
+    public class UpdateOrderCommand(IUnitOfWork unitOfWork, IOrderRepository orderRepository) : IRequestHandler<UpdateOrderRequest, UpdateOrderResponse>
     {
-        private readonly IUnitOfWork _unitOfWork;
-        private readonly IOrderRepository _orderRepository;
-
-        public UpdateOrderCommand(IUnitOfWork unitOfWork, IOrderRepository orderRepository)
-        {
-            _unitOfWork = unitOfWork;
-            _orderRepository = orderRepository;
-        }
+        private readonly IUnitOfWork _unitOfWork = unitOfWork;
+        private readonly IOrderRepository _orderRepository = orderRepository;
 
         public async Task<UpdateOrderResponse> Handle(UpdateOrderRequest request, CancellationToken cancellationToken)
         {
-            using (var transaction = _unitOfWork.Connection.BeginTransaction())
+            using var transaction = _unitOfWork?.Connection?.BeginTransaction();
+            try
             {
-                try
+                var oldOrder = await _orderRepository.GetById(OrderQueries.Find, request.Id);
+
+                if (oldOrder != null)
                 {
-                    var oldOrder = await _orderRepository.GetById(OrderQueries.Find, request.Id);
-
-                    if (oldOrder != null)
+                    var updatedOrder = await _orderRepository.Update(OrderQueries.Update, new Order
                     {
-                        var updatedOrder = await _orderRepository.Update(OrderQueries.Update, new Order
-                        {
-                            OrderId = request.OrderId,
-                            Id = request.Id,
-                            TotalPrice = request.TotalPrice,
-                            UpdateDate = DateTime.Now
-                        });
+                        OrderId = request.OrderId,
+                        Id = request.Id,
+                        TotalPrice = request.TotalPrice,
+                        UpdateDate = DateTime.Now
+                    });
 
-                        if (updatedOrder > 0)
+                    if (updatedOrder > 0)
+                    {
+                        _unitOfWork?.Transaction?.Commit();
+                        return new UpdateOrderResponse
                         {
-                            _unitOfWork.Transaction.Commit();
-                            return new UpdateOrderResponse
-                            {
 
-                            };
-                        }
+                        };
                     }
-
-                    return new UpdateOrderResponse
-                    {
-
-                    };
                 }
-                catch (Exception)
+
+                return new UpdateOrderResponse
                 {
-                    _unitOfWork.Transaction.Rollback();
-                    throw;
-                }
+
+                };
+            }
+            catch (Exception)
+            {
+                _unitOfWork?.Transaction?.Rollback();
+                throw;
             }
         }
     }

@@ -1,13 +1,9 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Query.FindOrderQuery
+namespace Germac.Application.Queries.FindOrderQuery
 {
-    public class FindOrderRequest : IRequest<FindOrderResponse>
+    public class FindOrderRequest(long id) : IRequest<FindOrderResponse>
     {
-        public FindOrderRequest(long id)
-        {
-            this.Id = id;
-        }
-        public long Id { get; set; }
+        public long Id { get; set; } = id;
     }
 }

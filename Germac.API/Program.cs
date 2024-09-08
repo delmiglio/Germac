@@ -2,7 +2,6 @@ using FluentValidation;
 using Germac.Application.Behaviors;
 using Germac.Application.Commands.CreateOrderCommand;
 using Germac.Domain.Repositories;
-using Germac.Domain.UnitOfWork;
 using Germac.Infrastructure.Logging;
 using Germac.Infrastructure.Repositories;
 using Germac.Infrastructure.UnitOfWork;
@@ -38,13 +37,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
-
 builder.Services.AddTransient<IDbConnection>(sp =>
     new MySqlConnection(configuration.GetConnectionString("Default")));
 
+// Add Transient Services
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingPipelineBehavior<,>));
 builder.Services.AddTransient(typeof(IRepository<>), typeof(GenericRepository<>));
 
+// Add Scoped
 builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPartRepository, PartRepository>();
@@ -53,10 +53,9 @@ builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
 
-// Register MediatR and scan the assembly where the handlers are located
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
-    Assembly.GetExecutingAssembly(), // Assemblies do projeto atual
-    Assembly.Load("Germac.Application") // Assembly externa, se necessário
+    Assembly.GetExecutingAssembly(), 
+    Assembly.Load("Germac.Application") 
 ));
 
 

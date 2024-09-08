@@ -1,6 +1,8 @@
-﻿namespace Germac.Application.Command.UpdatePartCommand
+﻿using Germac.Application.Base;
+
+namespace Germac.Application.Command.UpdatePartCommand
 {
-    public class UpdatePartResponse
+    public class UpdatePartResponse : ApiResponse<UpdatePartResponse>
     {
 
     }

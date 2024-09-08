@@ -1,8 +1,9 @@
-﻿using Germac.Application.Command.CreateOrderCommand;
+﻿using Germac.Application.Base;
+using Germac.Application.Command.CreateOrderCommand;
 using Germac.Application.Command.DeleteOrderCommand;
 using Germac.Application.Command.UpdateOrderCommand;
-using Germac.Application.Query.FindOrderQuery;
-using Germac.Application.Query.GetOrderQuery;
+using Germac.Application.Queries.FindOrderQuery;
+using Germac.Application.Queries.GetOrderQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,49 +11,84 @@ namespace Germac.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class OrderController : ControllerBase
+    public class OrderController(IMediator mediator) : ControllerBase
     {
-        private readonly IMediator _mediator;
-        public OrderController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        private readonly IMediator _mediator = mediator;
 
         [HttpGet]
         public async Task<IActionResult> GetOrder()
         {
             var request = new GetOrderRequest();
-            var Orders = await _mediator.Send(request);
+            var orders = await _mediator.Send(request);
 
-            if (Orders == null)
+            if (orders == null)
             {
-                return NotFound();
+                return NotFound(orders);
             }
 
-            return Ok(Orders);
+            return Ok(orders);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> FindOrderById([FromRoute] long id)
         {
             var request = new FindOrderRequest(id);
-            var Order = await _mediator.Send(request);
+            var order = await _mediator.Send(request);
 
-            return Ok(Order);
+            if (order == null)
+            {
+                return NotFound(order);
+            }
+
+            return Ok(order);
         }
 
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
-            var OrderCreated = await _mediator.Send(request);
-            return Ok(OrderCreated);
+            if (!ModelState.IsValid)
+            {
+                var errorResponse = new ApiResponse<object>
+                {
+                    Success = false,
+                    ErrorMessage = "Invalid input data"
+                };
+                return BadRequest(errorResponse);
+            }
+
+            var orderCreated = await _mediator.Send(request);
+            return CreatedAtAction(nameof(CreateOrderResponse), new { id = orderCreated.Id }, orderCreated);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder([FromRoute] long id, [FromBody] UpdateOrderRequest request)
         {
-            var OrderUpdated = await _mediator.Send(request);
-            return Ok(OrderUpdated);
+            if (!ModelState.IsValid)
+            {
+                var errorResponse = new ApiResponse<object>
+                {
+                    Success = false,
+                    ErrorMessage = "Invalid input data"
+                };
+                return BadRequest(errorResponse);
+            }
+
+            request.Id = id;
+            var orderUpdated = await _mediator.Send(request);
+
+            if (orderUpdated == null)
+            {
+                return NotFound(orderUpdated);
+            }
+
+            var successResponse = new ApiResponse<UpdateOrderResponse>
+            {
+                Success = true,
+                Data = orderUpdated
+            };
+
+            return Ok(successResponse);
+
         }
 
 
@@ -60,9 +96,14 @@ namespace Germac.API.Controllers
         public async Task<IActionResult> DeleteOrder([FromRoute] long id)
         {
             var request = new DeleteOrderRequest(id);
-            var Order = await _mediator.Send(request);
+            var order = await _mediator.Send(request);
 
-            return Ok(Order);
+            if (order == null)
+            {
+                return NotFound(order);
+            }
+
+            return NoContent();
         }
     }
 }

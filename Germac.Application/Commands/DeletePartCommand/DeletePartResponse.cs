@@ -1,6 +1,8 @@
-﻿namespace Germac.Application.Command.DeletePartCommand
+﻿using Germac.Application.Base;
+
+namespace Germac.Application.Command.DeletePartCommand
 {
-    public class DeletePartResponse
+    public class DeletePartResponse : ApiResponse<DeletePartResponse>
     {
 
     }

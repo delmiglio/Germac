@@ -1,6 +1,8 @@
-﻿namespace Germac.Application.Command.UpdateOrderCommand
+﻿using Germac.Application.Base;
+
+namespace Germac.Application.Command.UpdateOrderCommand
 {
-    public class UpdateOrderResponse
+    public class UpdateOrderResponse : ApiResponse<UpdateOrderResponse>
     {
 
     }
