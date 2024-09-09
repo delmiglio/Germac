@@ -1,12 +1,14 @@
-﻿using Germac.Domain.Entities;
+﻿using Germac.Application.Commands.DeletePartCommand;
+using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using Germac.Infrastructure.UnitOfWork;
 using MediatR;
+using Serilog;
 
 namespace Germac.Application.Commands.UpdateOrderCommand
 {
-    public class UpdateOrderCommand(IUnitOfWork unitOfWork, IOrderRepository orderRepository) : IRequestHandler<UpdateOrderRequest, UpdateOrderResponse>
+    public class UpdateOrderCommand(IUnitOfWork unitOfWork, IOrderRepository orderRepository, ILogger logger) : IRequestHandler<UpdateOrderRequest, UpdateOrderResponse>
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
         private readonly IOrderRepository _orderRepository = orderRepository;
@@ -15,6 +17,7 @@ namespace Germac.Application.Commands.UpdateOrderCommand
         {
             try
             {
+                logger.Information($"Starting Command {nameof(UpdateOrderCommand)}");
                 var oldOrder = await _orderRepository.GetById(OrderQueries.FindById, request.Id);
 
                 if (oldOrder != null)

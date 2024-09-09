@@ -6,7 +6,7 @@ using Serilog;
 
 namespace Germac.Infrastructure.Repositories
 {
-    public class OrderRepository(IUnitOfWork unitOfWork, ILogger logger) : GenericRepository<Order>(unitOfWork, logger), IOrderRepository
+    public class PartOrderRepository(IUnitOfWork unitOfWork, ILogger logger) : GenericRepository<PartOrder>(unitOfWork, logger), IPartOrderRepository
     {
 
     }

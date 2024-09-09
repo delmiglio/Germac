@@ -15,6 +15,12 @@
             
         }
 
+        public Part(long partId, long quantity) : base(DateTime.Now, null)
+        {
+            this.PartId = partId;
+            this.Quantity = quantity;
+        }
+
         public long Id { get; set; }
         public long PartId { get; set; }
         public string? PartNumber { get; set; }

@@ -51,6 +51,7 @@ builder.Services.AddScoped<ILoggingService, LoggingService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPartRepository, PartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IPartOrderRepository, PartOrderRepository>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(

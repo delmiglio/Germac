@@ -7,6 +7,8 @@ namespace Germac.Infrastructure.Queries
 
         public const string FindById = @"SELECT * FROM Part WHERE ID = @ID;";
 
+        public const string FindByIdList = @"SELECT * FROM Part WHERE PARTID IN @Ids;";
+
         public const string FindByPartId = @"SELECT * FROM Part WHERE PARTID = @ID;";
 
         public const string Insert = @"INSERT INTO Part (PartId, PartNumber, Name, Quantity, Price, CreateDate)
@@ -18,6 +20,11 @@ namespace Germac.Infrastructure.Queries
                                             Name = @Name,
                                             Quantity = @Quantity,
                                             Price = @Price,
+                                            UpdateDate = @UpdateDate
+                                        WHERE PartId = @PartId;";
+
+        public const string UpdateQuantity = @"UPDATE Part
+                                        SET Quantity = @Quantity,
                                             UpdateDate = @UpdateDate
                                         WHERE PartId = @PartId;";
 
