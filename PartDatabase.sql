@@ -1,6 +1,3 @@
-﻿CREATE SCHEMA germac;
-USE germac;
-
 CREATE TABLE Part (
     Id BIGINT NOT NULL AUTO_INCREMENT,
     PartId BIGINT NOT NULL,
@@ -33,7 +30,8 @@ CREATE TABLE PartStockOrder (
     OrderDate DATETIME NOT NULL,
     CreateDate DATETIME NOT NULL,
     UpdateDate DATETIME NULL,
-    PRIMARY KEY (Id)
+    PRIMARY KEY (Id),
+    UNIQUE (PartId, OrderId)
 );
 
 
@@ -45,11 +43,9 @@ ADD CONSTRAINT FK_PartStockOrder_Part FOREIGN KEY (PartId)
 
 ALTER TABLE PartStockOrder
 ADD CONSTRAINT FK_PartStockOrder_StockOrder FOREIGN KEY (OrderId)
-        REFERENCES PartStockOrder(OrderId)
+        REFERENCES StockOrder(OrderId)
         ON DELETE CASCADE
         ON UPDATE CASCADE;
-
-USE germac;
 
 -- Inserting sample data into the Part table
 INSERT INTO Part (PartId, PartNumber, Name, Quantity, Price, CreateDate, UpdateDate)
