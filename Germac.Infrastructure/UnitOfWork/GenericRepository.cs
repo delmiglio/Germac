@@ -31,7 +31,7 @@ namespace Germac.Infrastructure.UnitOfWork
             return result;
         }
 
-        public async Task<IEnumerable<T>> GetAll(string query)
+        public async Task<IEnumerable<T>> GetAll(string query, object? where = null)
         {
             _logger.Information("Executing GetAll");
             _logger.Debug("Query: {Query}", query);
@@ -43,14 +43,28 @@ namespace Germac.Infrastructure.UnitOfWork
                 throw new InvalidOperationException("Database connection is not initialized.");
             }
 
-            var result = await connection.QueryAsync<T>(
-                query,
-                transaction: _unitOfWork.Transaction
-            );
+            var result = Enumerable.Empty<T>();
+
+            if (where != null)
+            {
+                result = await connection.QueryAsync<T>(
+                    query,
+                    new { Ids = where },
+                transaction: _unitOfWork.Transaction);
+            }
+            else
+            { 
+                result = await connection.QueryAsync<T>(
+                    query,
+                    null,
+                transaction: _unitOfWork.Transaction);
+            }
 
             _logger.Information("GetAll result count: {Count}", result?.Count() ?? 0);
             return result ?? [];
         }
+
+
 
         public async Task<int> Add(string query, T entity)
         {

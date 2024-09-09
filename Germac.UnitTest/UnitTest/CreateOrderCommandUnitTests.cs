@@ -44,7 +44,7 @@ namespace Germac.Tests.UnitTest
 
             // Assert
             _orderRepositoryMock.Verify(repo => repo.Add(It.IsAny<string>(), It.IsAny<Order>()), Times.Once);
-            _loggerMock.Verify(logger => logger.Information(It.IsAny<string>()), Times.Exactly(3));
+            _loggerMock.Verify(logger => logger.Information(It.IsAny<string>()), Times.Exactly(4));
 
             Assert.NotNull(result);
             Assert.IsType<CreateOrderResponse>(result);

@@ -1,5 +1,4 @@
-﻿using Germac.Application.Commands.CreatePartCommand;
-using Germac.Domain.Entities;
+﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;

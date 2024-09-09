@@ -1,4 +1,5 @@
-﻿using Germac.Application.Commands.CreateOrderCommand;
+﻿using Germac.Application.Commands.AddPartsOrder;
+using Germac.Application.Commands.CreateOrderCommand;
 using Germac.Application.Commands.DeleteOrderCommand;
 using Germac.Application.Commands.UpdateOrderCommand;
 using Germac.Application.Queries.FindOrderQuery;
@@ -53,6 +54,21 @@ namespace Germac.API.Controllers
         public async Task<IActionResult> UpdateOrder([FromRoute] long id, [FromBody] UpdateOrderRequest request)
         {
             request.Id = id;
+            var orderUpdated = await _mediator.Send(request);
+
+            if (orderUpdated.Data == null)
+            {
+                return NotFound(orderUpdated);
+            }
+
+            return Ok(orderUpdated);
+
+        }
+
+        [HttpPut("{id}/Part")]
+        public async Task<IActionResult> AddPartsOrder([FromRoute] long id, [FromBody] AddPartsOrderRequest request)
+        {
+            request.OrderId = id;
             var orderUpdated = await _mediator.Send(request);
 
             if (orderUpdated.Data == null)

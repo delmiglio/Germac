@@ -8,9 +8,8 @@ namespace Germac.Domain.Entities
 {
     public class PartOrder : BaseEntity
     {
-        public PartOrder(long id, long partId, long orderId, long quantity) : base(DateTime.Now, null)
+        public PartOrder(long partId, long orderId, long quantity) : base(DateTime.Now, null)
         {
-            this.Id = id;
             this.PartId = partId;
             this.OrderId = orderId;
             this.Quantity = quantity;
