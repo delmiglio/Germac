@@ -17,8 +17,9 @@ namespace Germac.Application.Queries.GetOrderQuery
             {
                 Data = orders.Select(order => new OrderDTO
                 {
+                    Id = order.Id,
                     CreateDate = order.CreateDate,
-                    OrderId = order.Id,
+                    OrderId = order.OrderId,
                     TotalPrice = order.TotalPrice
                 }),
                 Success = true,

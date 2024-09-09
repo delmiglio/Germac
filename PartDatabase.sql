@@ -15,7 +15,7 @@ CREATE TABLE Part (
 );
 
 CREATE TABLE StockOrder (
-    Id BIGINT NOT NULL,        
+    Id BIGINT NOT NULL AUTO_INCREMENT,        
     OrderId BIGINT NOT NULL,               
     TotalPrice DECIMAL(18, 2) NOT NULL,    
     CreateDate DATETIME NOT NULL,

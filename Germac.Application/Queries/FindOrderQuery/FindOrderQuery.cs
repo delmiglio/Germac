@@ -31,6 +31,8 @@ namespace Germac.Application.Queries.FindOrderQuery
                 ErrorMessage = null,
                 Data = new OrderDTO
                 {
+                    Id = order.Id,
+                    CreateDate = order.CreateDate,
                     OrderId = order.OrderId,
                     TotalPrice = order.TotalPrice,
                 }
