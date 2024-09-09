@@ -1,6 +1,4 @@
-using FluentValidation;
 using Germac.Application.Behaviors;
-using Germac.Application.Commands.CreateOrderCommand;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Logging;
 using Germac.Infrastructure.Repositories;
@@ -50,8 +48,6 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddScoped<IPartRepository, PartRepository>();
 builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
-
-builder.Services.AddValidatorsFromAssemblyContaining<CreateOrderValidator>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(
     Assembly.GetExecutingAssembly(), 

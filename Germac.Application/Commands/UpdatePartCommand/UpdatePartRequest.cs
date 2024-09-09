@@ -1,5 +1,4 @@
-﻿using Germac.Application.Command.UpdatePartCommand;
-using MediatR;
+﻿using MediatR;
 
 namespace Germac.Application.Commands.UpdatePartCommand
 {

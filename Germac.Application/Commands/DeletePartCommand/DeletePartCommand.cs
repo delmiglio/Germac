@@ -1,5 +1,4 @@
-﻿using Germac.Application.Command.DeletePartCommand;
-using Germac.Domain.Repositories;
+﻿using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using Germac.Infrastructure.UnitOfWork;
 using MediatR;

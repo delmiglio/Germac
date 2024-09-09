@@ -1,14 +1,9 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Command.DeleteOrderCommand
+namespace Germac.Application.Commands.DeleteOrderCommand
 {
-    public class DeleteOrderRequest : IRequest<DeleteOrderResponse>
+    public class DeleteOrderRequest(long id) : IRequest<DeleteOrderResponse>
     {
-        public DeleteOrderRequest(long id)
-        {
-            this.Id = id;
-        }
-
-        public long Id { get; set; }
+        public long Id { get; set; } = id;
     }
 }

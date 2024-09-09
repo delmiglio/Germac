@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Command.CreateOrderCommand
+namespace Germac.Application.Commands.CreateOrderCommand
 {
     public class CreateOrderRequest : IRequest<CreateOrderResponse>
     {

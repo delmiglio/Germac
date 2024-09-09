@@ -1,6 +1,6 @@
 ﻿using Germac.Application.Base;
 
-namespace Germac.Application.Command.UpdatePartCommand
+namespace Germac.Application.Commands.UpdatePartCommand
 {
     public class UpdatePartResponse : ApiResponse<UpdatePartResponse>
     {

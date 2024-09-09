@@ -1,4 +1,4 @@
-﻿using Germac.Application.Command.DeletePartCommand;
+﻿using Germac.Application.Commands.DeletePartCommand;
 using Germac.Application.Commands.CreatePartCommand;
 using Germac.Application.Commands.UpdatePartCommand;
 using Germac.Application.Queries.FindPartQuery;

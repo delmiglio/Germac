@@ -1,6 +1,6 @@
 ﻿using Germac.Application.Base;
 
-namespace Germac.Application.Command.UpdateOrderCommand
+namespace Germac.Application.Commands.UpdateOrderCommand
 {
     public class UpdateOrderResponse : ApiResponse<UpdateOrderResponse>
     {

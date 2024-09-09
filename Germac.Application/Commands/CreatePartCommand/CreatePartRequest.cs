@@ -1,5 +1,4 @@
-﻿using Germac.Application.Command.CreatePartCommand;
-using MediatR;
+﻿using MediatR;
 
 namespace Germac.Application.Commands.CreatePartCommand
 {

@@ -1,6 +1,6 @@
 ﻿using Germac.Application.Base;
 
-namespace Germac.Application.Command.CreateOrderCommand
+namespace Germac.Application.Commands.CreateOrderCommand
 {
     public class CreateOrderResponse : ApiResponse<CreateOrderResponse>
     {

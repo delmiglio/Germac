@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Command.UpdateOrderCommand
+namespace Germac.Application.Commands.UpdateOrderCommand
 {
     public class UpdateOrderRequest : IRequest<UpdateOrderResponse>
     {

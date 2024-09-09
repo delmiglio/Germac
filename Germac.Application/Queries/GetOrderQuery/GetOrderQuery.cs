@@ -4,16 +4,11 @@ using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
 
-namespace Germac.Application.Query.GetOrderQuery
+namespace Germac.Application.Queries.GetOrderQuery
 {
-    public class GetOrderQuery : IRequestHandler<GetOrderRequest, GetOrderResponse>
+    public class GetOrderQuery(IOrderRepository orderRepository) : IRequestHandler<GetOrderRequest, GetOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository;
-
-        public GetOrderQuery(IOrderRepository orderRepository)
-        {
-            _orderRepository = orderRepository;
-        }
+        private readonly IOrderRepository _orderRepository = orderRepository;
 
         public async Task<GetOrderResponse> Handle(GetOrderRequest request, CancellationToken cancellationToken)
         {

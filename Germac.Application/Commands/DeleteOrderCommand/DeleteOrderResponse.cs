@@ -1,6 +1,6 @@
 ﻿using Germac.Application.Base;
 
-namespace Germac.Application.Command.DeleteOrderCommand
+namespace Germac.Application.Commands.DeleteOrderCommand
 {
     public class DeleteOrderResponse : ApiResponse<DeleteOrderResponse>
     {

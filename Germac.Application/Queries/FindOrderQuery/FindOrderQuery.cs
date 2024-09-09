@@ -1,18 +1,14 @@
 ﻿using Germac.Application.DTO;
-using Germac.Application.Queries.FindOrderQuery;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
 
-namespace Germac.Application.Query.FindOrderQuery
+namespace Germac.Application.Queries.FindOrderQuery
 {
-    public class FindOrderQuery : IRequestHandler<FindOrderRequest, FindOrderResponse>
+    public class FindOrderQuery(IOrderRepository orderRepository) : IRequestHandler<FindOrderRequest, FindOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository;
-        public FindOrderQuery(IOrderRepository orderRepository)
-        {
-            _orderRepository = orderRepository;
-        }
+        private readonly IOrderRepository _orderRepository = orderRepository;
+
         public async Task<FindOrderResponse> Handle(FindOrderRequest request, CancellationToken cancellationToken)
         {
             var order = await _orderRepository.GetById(OrderQueries.Get, request.Id);

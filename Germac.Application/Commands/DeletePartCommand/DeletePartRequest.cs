@@ -1,14 +1,9 @@
 ﻿using MediatR;
 
-namespace Germac.Application.Command.DeletePartCommand
+namespace Germac.Application.Commands.DeletePartCommand
 {
-    public class DeletePartRequest : IRequest<DeletePartResponse>
+    public class DeletePartRequest(long id) : IRequest<DeletePartResponse>
     {
-        public DeletePartRequest(long id)
-        {
-            this.Id = id;
-        }
-
-        public long Id { get; set; }
+        public long Id { get; set; } = id;
     }
 }

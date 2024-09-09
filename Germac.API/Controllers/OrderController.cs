@@ -1,7 +1,7 @@
 ﻿using Germac.Application.Base;
-using Germac.Application.Command.CreateOrderCommand;
-using Germac.Application.Command.DeleteOrderCommand;
-using Germac.Application.Command.UpdateOrderCommand;
+using Germac.Application.Commands.CreateOrderCommand;
+using Germac.Application.Commands.DeleteOrderCommand;
+using Germac.Application.Commands.UpdateOrderCommand;
 using Germac.Application.Queries.FindOrderQuery;
 using Germac.Application.Queries.GetOrderQuery;
 using MediatR;

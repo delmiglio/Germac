@@ -48,3 +48,15 @@ ADD CONSTRAINT FK_PartStockOrder_StockOrder FOREIGN KEY (OrderId)
         REFERENCES PartStockOrder(OrderId)
         ON DELETE CASCADE
         ON UPDATE CASCADE;
+
+USE germac;
+
+-- Inserting sample data into the Part table
+INSERT INTO Part (PartId, PartNumber, Name, Quantity, Price, CreateDate, UpdateDate)
+VALUES
+(1, 'PN001', 'Widget A', 100, 29.99, NOW(), NULL),
+(2, 'PN002', 'Widget B', 150, 49.99, NOW(), NULL),
+(3, 'PN003', 'Widget C', 200, 19.99, NOW(), NULL),
+(4, 'PN004', 'Widget D', 300, 99.99, NOW(), NULL),
+(5, 'PN005', 'Widget E', 50, 9.99, NOW(), NULL);
+
