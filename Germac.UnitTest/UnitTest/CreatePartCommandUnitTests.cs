@@ -17,7 +17,6 @@ namespace Germac.Tests.UnitTest
             _partRepositoryMock = new Mock<IPartRepository>();
             _loggerMock = new Mock<ILogger>();
 
-            // Instantiate the command handler with mocked dependencies
             _createPartCommand = new CreatePartCommand(_partRepositoryMock.Object, _loggerMock.Object);
         }
 

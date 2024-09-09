@@ -11,18 +11,21 @@ namespace Germac.Application.Queries.GetPartQuery
 
         public async Task<GetPartResponse> Handle(GetPartRequest request, CancellationToken cancellationToken)
         {
-            var Parts = await _partRepository.GetAll(PartQueries.Get);
+            var parts = await _partRepository.GetAll(PartQueries.Get);
+            var partsDto = parts.Select(Part => new PartDTO
+            {
+                Quantity = Part.Quantity,
+                Price = Part.Price,
+                PartNumber = Part.PartNumber,
+                PartId = Part.PartId,
+                Name = Part.Name,
+                Id = Part.Id
+            });
             return new GetPartResponse
             {
-                Parts = Parts.Select(Part => new PartDTO
-                {
-                    Quantity = Part.Quantity,
-                    Price = Part.Price,
-                    PartNumber = Part.PartNumber,
-                    PartId = Part.PartId,
-                    Name = Part.Name,
-                    Id = Part.Id
-                })
+                Success = true,
+                Data = partsDto,
+                ErrorMessage = null
             };
         }
     }

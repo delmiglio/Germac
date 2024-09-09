@@ -3,8 +3,8 @@ using Germac.Application.DTO;
 
 namespace Germac.Application.Queries.FindPartQuery
 {
-    public class FindPartResponse : ApiResponse<FindPartResponse>
+    public class FindPartResponse : ApiResponse<object>
     {
-        public PartDTO? Part { get; set; }
+
     }
 }

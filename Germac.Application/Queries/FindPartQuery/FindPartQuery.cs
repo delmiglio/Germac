@@ -15,20 +15,29 @@ namespace Germac.Application.Queries.FindPartQuery
 
             if (part == null)
             {
-                return new FindPartResponse();
+                return new FindPartResponse
+                {
+                    Success = false,
+                    ErrorMessage = "Part Not Found",
+                    Data = null
+                };
             }
 
             return new FindPartResponse
             {
-                Part = new PartDTO
+                Success = true,
+                Data = new PartDTO
                 {
+
                     Id = part.Id,
                     Name = part.Name,
                     PartId = part.Id,
                     PartNumber = part.PartNumber,
                     Price = part.Price,
                     Quantity = part.Quantity
-                }
+
+                },
+                ErrorMessage = null
             };
 
         }

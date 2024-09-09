@@ -15,12 +15,14 @@ namespace Germac.Application.Queries.GetOrderQuery
             var orders = await _orderRepository.GetAll(OrderQueries.Get);
             return new GetOrderResponse
             {
-                Orders = orders.Select(order => new OrderDTO
+                Data = orders.Select(order => new OrderDTO
                 {
                     CreateDate = order.CreateDate,
                     OrderId = order.Id,
                     TotalPrice = order.TotalPrice
-                })
+                }),
+                Success = true,
+                ErrorMessage = null
             };
         }
     }
