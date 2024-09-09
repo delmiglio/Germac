@@ -16,7 +16,7 @@
                                             UpdateDate = @UpdateDate
                                         WHERE OrderId = @OrderId;";
 
-        public const string Delete = @"DELETE * FROM StockOrder WHERE Id = @Id;";
+        public const string Delete = @"DELETE FROM StockOrder WHERE Id = @Id;";
 
     }
 }

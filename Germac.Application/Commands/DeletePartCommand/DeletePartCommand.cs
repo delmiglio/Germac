@@ -12,30 +12,27 @@ namespace Germac.Application.Commands.DeletePartCommand
 
         public async Task<DeletePartResponse> Handle(DeletePartRequest request, CancellationToken cancellationToken)
         {
-            using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
-                var partToBeDeleted = _partRepository.GetById(PartQueries.FindById, request.Id);
+                var partToBeDeleted = await _partRepository.GetById(PartQueries.FindById, request.Id);
                 if (partToBeDeleted != null)
                 {
                     var deletePartResult = await _partRepository.Delete(PartQueries.Delete, request.Id);
                     if (deletePartResult > 0)
                     {
-                        _unitOfWork?.Transaction?.Commit();
                         return new DeletePartResponse
                         {
                             Success = true,
-                            Data = null,
+                            Data = deletePartResult,
                             ErrorMessage = null
                         };
                     }
                 }
-
                 return new DeletePartResponse
                 {
                     Success = false,
                     Data = null,
-                    ErrorMessage = "Order Not Deleted"
+                    ErrorMessage = "Part Not Deleted. Not Found"
                 };
             }
             catch (Exception)

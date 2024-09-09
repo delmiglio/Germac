@@ -1,5 +1,4 @@
-﻿using Germac.Application.Commands.UpdatePartCommand;
-using Germac.Domain.Entities;
+﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using Germac.Infrastructure.UnitOfWork;
@@ -14,7 +13,6 @@ namespace Germac.Application.Commands.UpdateOrderCommand
 
         public async Task<UpdateOrderResponse> Handle(UpdateOrderRequest request, CancellationToken cancellationToken)
         {
-            using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
                 var oldOrder = await _orderRepository.GetById(OrderQueries.FindById, request.Id);

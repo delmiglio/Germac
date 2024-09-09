@@ -94,6 +94,7 @@ namespace Germac.Infrastructure.UnitOfWork
             );
 
             _logger.Information("Update operation completed. Rows affected: {RowsAffected}", rowsAffected);
+            _unitOfWork.Commit();
             return rowsAffected;
         }
 

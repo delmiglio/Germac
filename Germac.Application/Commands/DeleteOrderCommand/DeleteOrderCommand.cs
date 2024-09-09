@@ -12,30 +12,27 @@ namespace Germac.Application.Commands.DeleteOrderCommand
 
         public async Task<DeleteOrderResponse> Handle(DeleteOrderRequest request, CancellationToken cancellationToken)
         {
-            using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
-                var OrderToBeDeleted = _orderRepository.GetById(OrderQueries.FindById, request.Id);
-                if (OrderToBeDeleted != null)
+                var orderToBeDeleted = await _orderRepository.GetById(OrderQueries.FindById, request.Id);
+                if (orderToBeDeleted != null)
                 {
                     var deleteOrderResult = await _orderRepository.Delete(OrderQueries.Delete, request.Id);
                     if (deleteOrderResult > 0)
                     {
-                        _unitOfWork?.Transaction?.Commit();
                         return new DeleteOrderResponse
                         {
                             Success = true,
-                            Data = null,
+                            Data = deleteOrderResult,
                             ErrorMessage = null
                         };
                     }
                 }
-
                 return new DeleteOrderResponse
                 {
                     Success = false,
                     Data = null,
-                    ErrorMessage = "Order Not Deleted"
+                    ErrorMessage = "Order Not Deleted. Not Found"
                 };
             }
             catch (Exception)

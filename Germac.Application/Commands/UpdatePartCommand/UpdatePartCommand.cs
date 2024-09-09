@@ -13,7 +13,6 @@ namespace Germac.Application.Commands.UpdatePartCommand
 
         public async Task<UpdatePartResponse> Handle(UpdatePartRequest request, CancellationToken cancellationToken)
         {
-            using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
                 var oldPart = await _partRepository.GetById(PartQueries.FindById, request.Id);

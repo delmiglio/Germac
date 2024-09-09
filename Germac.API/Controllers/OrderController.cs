@@ -1,5 +1,4 @@
-﻿using Germac.Application.Base;
-using Germac.Application.Commands.CreateOrderCommand;
+﻿using Germac.Application.Commands.CreateOrderCommand;
 using Germac.Application.Commands.DeleteOrderCommand;
 using Germac.Application.Commands.UpdateOrderCommand;
 using Germac.Application.Queries.FindOrderQuery;
@@ -35,7 +34,7 @@ namespace Germac.API.Controllers
             var request = new FindOrderRequest(id);
             var order = await _mediator.Send(request);
 
-            if (order == null)
+            if (order.Data == null)
             {
                 return NotFound(order);
             }
@@ -46,37 +45,17 @@ namespace Germac.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid input data"
-                };
-                return BadRequest(errorResponse);
-            }
-
             var orderCreated = await _mediator.Send(request);
-            return CreatedAtAction(nameof(CreateOrderResponse), new { id = orderCreated.Data }, orderCreated);
+            return Created(orderCreated.Data as string, null);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrder([FromRoute] long id, [FromBody] UpdateOrderRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid input data"
-                };
-                return BadRequest(errorResponse);
-            }
-
             request.Id = id;
             var orderUpdated = await _mediator.Send(request);
 
-            if (orderUpdated == null)
+            if (orderUpdated.Data == null)
             {
                 return NotFound(orderUpdated);
             }
@@ -92,7 +71,7 @@ namespace Germac.API.Controllers
             var request = new DeleteOrderRequest(id);
             var order = await _mediator.Send(request);
 
-            if (order == null)
+            if (order.Data == null)
             {
                 return NotFound(order);
             }

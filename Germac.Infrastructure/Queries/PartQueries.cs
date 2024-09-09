@@ -21,6 +21,6 @@ namespace Germac.Infrastructure.Queries
                                             UpdateDate = @UpdateDate
                                         WHERE PartId = @PartId;";
 
-        public const string Delete = @"DELETE * FROM Part Where ID = @ID;";
+        public const string Delete = @"DELETE FROM Part Where ID = @ID;";
     }
 }

@@ -1,13 +1,11 @@
-﻿using Germac.Application.Commands.DeletePartCommand;
-using Germac.Application.Commands.CreatePartCommand;
+﻿using Germac.Application.Commands.CreatePartCommand;
 using Germac.Application.Commands.UpdatePartCommand;
 using Germac.Application.Queries.FindPartQuery;
 using Germac.Application.Queries.GetPartQuery;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Germac.Application.Base;
-using Germac.Application.Commands.CreateOrderCommand;
 using Germac.Application.Commands.DeleteOrderCommand;
+using Germac.Application.Commands.DeletePartCommand;
 
 namespace Germac.API.Controllers
 {
@@ -23,7 +21,7 @@ namespace Germac.API.Controllers
             var request = new GetPartRequest();
             var parts = await _mediator.Send(request);
 
-            if (parts == null)
+            if (parts.Data == null)
             {
                 return NotFound();
             }
@@ -48,54 +46,34 @@ namespace Germac.API.Controllers
         [HttpPost]
         public async Task<IActionResult> CreatePart([FromBody] CreatePartRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid input data"
-                };
-                return BadRequest(errorResponse);
-            }
-
             var partCreated = await _mediator.Send(request);
-            return CreatedAtAction(nameof(CreatePartResponse), new { id = partCreated.Data }, partCreated);
+            return Created(partCreated.Data as string, null);
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdatePart([FromRoute] long id, [FromBody] UpdatePartRequest request)
         {
-            if (!ModelState.IsValid)
-            {
-                var errorResponse = new ApiResponse<object>
-                {
-                    Success = false,
-                    ErrorMessage = "Invalid input data"
-                };
-                return BadRequest(errorResponse);
-            }
-
             request.Id = id;
-            var orderUpdated = await _mediator.Send(request);
+            var partUpdated = await _mediator.Send(request);
 
-            if (orderUpdated == null)
+            if (partUpdated.Data == null)
             {
-                return NotFound(orderUpdated);
+                return NotFound(partUpdated);
             }
 
-            return Ok(orderUpdated);
+            return Ok(partUpdated);
         }
 
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePart([FromRoute] long id)
         {
-            var request = new DeleteOrderRequest(id);
-            var order = await _mediator.Send(request);
+            var request = new DeletePartRequest(id);
+            var part = await _mediator.Send(request);
 
-            if (order == null)
+            if (part.Data == null)
             {
-                return NotFound(order);
+                return NotFound(part);
             }
 
             return NoContent();
