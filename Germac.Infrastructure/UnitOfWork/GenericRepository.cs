@@ -7,12 +7,12 @@ namespace Germac.Infrastructure.UnitOfWork
     {
         private readonly IUnitOfWork _unitOfWork = unitOfWork;
 
-        public async Task<T> GetById(string query, long id)
+        public async Task<T?> GetById(string query, long id)
         {
             var connection = _unitOfWork.Connection;
             return connection == null
                 ? throw new InvalidOperationException("Database connection is not initialized.")
-                : await connection.QueryFirstAsync<T>(
+                : await connection.QueryFirstOrDefaultAsync<T>(
                 query,
                 new { Id = id },
                 _unitOfWork.Transaction
