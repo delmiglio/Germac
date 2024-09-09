@@ -2,7 +2,7 @@
 
 namespace Germac.Application.Commands.UpdatePartCommand
 {
-    public class UpdatePartResponse : ApiResponse<UpdatePartResponse>
+    public class UpdatePartResponse : ApiResponse<object>
     {
 
     }

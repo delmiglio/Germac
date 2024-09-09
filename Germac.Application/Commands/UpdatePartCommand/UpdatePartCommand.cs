@@ -16,7 +16,7 @@ namespace Germac.Application.Commands.UpdatePartCommand
             using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
-                var oldPart = await _partRepository.GetById(PartQueries.Find, request.Id);
+                var oldPart = await _partRepository.GetById(PartQueries.FindById, request.Id);
 
                 if (oldPart != null)
                 {
@@ -36,14 +36,18 @@ namespace Germac.Application.Commands.UpdatePartCommand
                         _unitOfWork?.Transaction?.Commit();
                         return new UpdatePartResponse
                         {
-
+                            Success = true,
+                            Data = updatedPart,
+                            ErrorMessage = null
                         };
                     }
                 }
 
                 return new UpdatePartResponse
                 {
-
+                    Success = false,
+                    Data = null,
+                    ErrorMessage = "Part Not Updated. Part Not in Database"
                 };
             }
             catch (Exception)

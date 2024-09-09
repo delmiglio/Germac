@@ -15,18 +15,28 @@ namespace Germac.Application.Commands.DeletePartCommand
             using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
-                var partToBeDeleted = _partRepository.GetById(PartQueries.Find, request.Id);
+                var partToBeDeleted = _partRepository.GetById(PartQueries.FindById, request.Id);
                 if (partToBeDeleted != null)
                 {
                     var deletePartResult = await _partRepository.Delete(PartQueries.Delete, request.Id);
                     if (deletePartResult > 0)
                     {
                         _unitOfWork?.Transaction?.Commit();
-                        return new DeletePartResponse();
+                        return new DeletePartResponse
+                        {
+                            Success = true,
+                            Data = null,
+                            ErrorMessage = null
+                        };
                     }
                 }
 
-                return new DeletePartResponse();
+                return new DeletePartResponse
+                {
+                    Success = false,
+                    Data = null,
+                    ErrorMessage = "Order Not Deleted"
+                };
             }
             catch (Exception)
             {

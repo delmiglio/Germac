@@ -57,7 +57,7 @@ namespace Germac.API.Controllers
             }
 
             var orderCreated = await _mediator.Send(request);
-            return CreatedAtAction(nameof(CreateOrderResponse), new { id = orderCreated.Id }, orderCreated);
+            return CreatedAtAction(nameof(CreateOrderResponse), new { id = orderCreated.Data }, orderCreated);
         }
 
         [HttpPut("{id}")]
@@ -81,13 +81,7 @@ namespace Germac.API.Controllers
                 return NotFound(orderUpdated);
             }
 
-            var successResponse = new ApiResponse<UpdateOrderResponse>
-            {
-                Success = true,
-                Data = orderUpdated
-            };
-
-            return Ok(successResponse);
+            return Ok(orderUpdated);
 
         }
 

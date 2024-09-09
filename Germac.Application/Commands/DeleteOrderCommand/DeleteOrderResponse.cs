@@ -2,7 +2,7 @@
 
 namespace Germac.Application.Commands.DeleteOrderCommand
 {
-    public class DeleteOrderResponse : ApiResponse<DeleteOrderResponse>
+    public class DeleteOrderResponse : ApiResponse<object>
     {
 
     }

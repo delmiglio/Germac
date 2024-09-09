@@ -2,19 +2,20 @@
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
+using Serilog;
 
 namespace Germac.Application.Queries.FindPartQuery
 {
-    public class FindPartQuery(IPartRepository partRepository) : IRequestHandler<FindPartRequest, FindPartResponse>
+    public class FindPartQuery(IPartRepository _partRepository, ILogger logger) : IRequestHandler<FindPartRequest, FindPartResponse>
     {
-        private readonly IPartRepository _partRepository = partRepository;
-
         public async Task<FindPartResponse> Handle(FindPartRequest request, CancellationToken cancellationToken)
         {
-            var part = await _partRepository.GetById(PartQueries.Find, request.Id);
+            logger.Information($"Starting Query {nameof(FindPartQuery)}");
+            var part = await _partRepository.GetById(PartQueries.FindById, request.Id);
 
             if (part == null)
             {
+                logger.Information($"Finishing Query {nameof(FindPartQuery)}");
                 return new FindPartResponse
                 {
                     Success = false,
@@ -22,7 +23,7 @@ namespace Germac.Application.Queries.FindPartQuery
                     Data = null
                 };
             }
-
+            logger.Information($"Finishing Query {nameof(FindPartQuery)}");
             return new FindPartResponse
             {
                 Success = true,

@@ -1,31 +1,26 @@
 ﻿using MediatR;
-using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Germac.Application.Behaviors
 {
-    public class LoggingPipelineBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest, new()
+    public class LoggingPipelineBehavior<TRequest, TResponse>(ILogger logger) : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest, new()
     {
-        private readonly ILogger<LoggingPipelineBehavior<TRequest, TResponse>> _logger;
-
-        public LoggingPipelineBehavior(ILogger<LoggingPipelineBehavior<TRequest, TResponse>> logger)
-        {
-            _logger = logger;
-        }
+        private readonly ILogger _logger = logger.ForContext("RequestType", typeof(TRequest).Name);
 
         public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
         {
             var requestName = typeof(TRequest).Name;
-            _logger.LogInformation("Starting request: {RequestName} at {DateTime}", requestName, DateTime.UtcNow);
+            _logger.Information("Starting request: {RequestName} at {DateTime}", requestName, DateTime.UtcNow);
 
             try
             {
                 var response = await next();
-                _logger.LogInformation("Completed request: {RequestName} at {DateTime}", requestName, DateTime.UtcNow);
+                _logger.Information("Completed request: {RequestName} at {DateTime}", requestName, DateTime.UtcNow);
                 return response;
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Request {RequestName} failed at {DateTime}", requestName, DateTime.UtcNow);
+                _logger.Error(ex, "Request {RequestName} failed at {DateTime}", requestName, DateTime.UtcNow);
                 throw;
             }
         }

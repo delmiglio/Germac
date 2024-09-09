@@ -8,5 +8,6 @@
         public string? Name { get; set; }
         public long Quantity { get; set; }
         public decimal Price { get; set; }
+        public bool UnavaiableStock { get => Quantity <= 0; }
     }
 }

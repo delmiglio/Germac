@@ -2,8 +2,8 @@
 
 namespace Germac.Application.Commands.CreateOrderCommand
 {
-    public class CreateOrderResponse : ApiResponse<CreateOrderResponse>
+    public class CreateOrderResponse : ApiResponse<object>
     {
-        public long Id { get; set; }
+
     }
 }

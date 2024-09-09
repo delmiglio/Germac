@@ -2,8 +2,8 @@
 
 namespace Germac.Application.Commands.CreatePartCommand
 {
-    public class CreatePartResponse : ApiResponse<CreatePartResponse>
+    public class CreatePartResponse : ApiResponse<object>
     {
-        public long Id { get; set; }
+
     }
 }

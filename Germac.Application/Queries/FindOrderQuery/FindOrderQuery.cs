@@ -2,19 +2,20 @@
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.Queries;
 using MediatR;
+using Serilog;
 
 namespace Germac.Application.Queries.FindOrderQuery
 {
-    public class FindOrderQuery(IOrderRepository orderRepository) : IRequestHandler<FindOrderRequest, FindOrderResponse>
+    public class FindOrderQuery(IOrderRepository _orderRepository, ILogger logger) : IRequestHandler<FindOrderRequest, FindOrderResponse>
     {
-        private readonly IOrderRepository _orderRepository = orderRepository;
-
         public async Task<FindOrderResponse> Handle(FindOrderRequest request, CancellationToken cancellationToken)
         {
-            var order = await _orderRepository.GetById(OrderQueries.Get, request.Id);
+            logger.Information($"Starting Query {nameof(FindOrderQuery)}");
+            var order = await _orderRepository.GetById(OrderQueries.FindById, request.Id);
 
             if (order == null)
             {
+                logger.Information($"Finishing Query {nameof(FindOrderQuery)}");
                 return new FindOrderResponse
                 {
                     Data = null,
@@ -23,7 +24,7 @@ namespace Germac.Application.Queries.FindOrderQuery
 
                 };
             }
-
+            logger.Information($"Finishing Query {nameof(FindOrderQuery)}");
             return new FindOrderResponse
             {
                 Success = true,

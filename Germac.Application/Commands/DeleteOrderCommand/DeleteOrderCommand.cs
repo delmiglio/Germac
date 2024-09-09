@@ -15,18 +15,28 @@ namespace Germac.Application.Commands.DeleteOrderCommand
             using var transaction = _unitOfWork?.Connection?.BeginTransaction();
             try
             {
-                var OrderToBeDeleted = _orderRepository.GetById(OrderQueries.Find, request.Id);
+                var OrderToBeDeleted = _orderRepository.GetById(OrderQueries.FindById, request.Id);
                 if (OrderToBeDeleted != null)
                 {
                     var deleteOrderResult = await _orderRepository.Delete(OrderQueries.Delete, request.Id);
                     if (deleteOrderResult > 0)
                     {
                         _unitOfWork?.Transaction?.Commit();
-                        return new DeleteOrderResponse();
+                        return new DeleteOrderResponse
+                        {
+                            Success = true,
+                            Data = null,
+                            ErrorMessage = null
+                        };
                     }
                 }
 
-                return new DeleteOrderResponse();
+                return new DeleteOrderResponse
+                {
+                    Success = false,
+                    Data = null,
+                    ErrorMessage = "Order Not Deleted"
+                };
             }
             catch (Exception)
             {

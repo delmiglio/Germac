@@ -1,18 +1,12 @@
 ﻿using Germac.Domain.Entities;
 using Germac.Domain.Repositories;
 using Germac.Infrastructure.UnitOfWork;
+using Serilog;
+
 
 namespace Germac.Infrastructure.Repositories
 {
-    public class OrderRepository : GenericRepository<Order>, IOrderRepository
+    public class OrderRepository(IUnitOfWork unitOfWork, ILogger logger) : GenericRepository<Order>(unitOfWork, logger), IOrderRepository
     {
-        public string QueryGet = "SELECT * FROM ORDER";
-        public string QueryFind = "SELECT * FROM ORDER WHERE ID = @ID";
-        public string QueryUpdate = "UPDATE ORDER SET ";
-        public string QueryDelete = "DELETE FROM ORDER WHERE ID = @ID";
-
-        public OrderRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
-        {
-        }
     }
 }

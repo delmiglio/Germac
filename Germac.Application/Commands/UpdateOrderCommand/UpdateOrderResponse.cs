@@ -2,7 +2,7 @@
 
 namespace Germac.Application.Commands.UpdateOrderCommand
 {
-    public class UpdateOrderResponse : ApiResponse<UpdateOrderResponse>
+    public class UpdateOrderResponse : ApiResponse<object>
     {
 
     }

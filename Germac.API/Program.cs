@@ -19,8 +19,12 @@ var configuration = new ConfigurationBuilder()
 // Configuração do Serilog
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
+    .WriteTo.Debug()
+    .MinimumLevel.Debug() // Log debug messages and higher
+    .Enrich.FromLogContext()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
+
 
 builder.Host.UseSerilog();
 

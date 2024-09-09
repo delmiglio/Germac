@@ -58,5 +58,6 @@ VALUES
 (2, 'PN002', 'Widget B', 150, 49.99, NOW(), NULL),
 (3, 'PN003', 'Widget C', 200, 19.99, NOW(), NULL),
 (4, 'PN004', 'Widget D', 300, 99.99, NOW(), NULL),
-(5, 'PN005', 'Widget E', 50, 9.99, NOW(), NULL);
+(5, 'PN005', 'Widget E', 50, 9.99, NOW(), NULL),
+(6, 'PN005', 'Widget F', 0, 9.99, NOW(), NULL);
 
